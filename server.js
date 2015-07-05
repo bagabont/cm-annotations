@@ -1,6 +1,5 @@
-var path = require('path'),
-    http = require('http'),
-    app = require('./config/express')(),
+var http = require('http'),
+    app = require('./config/express').App,
     socket = require('./routes/socket.js');
 
 var server = http.createServer(app);

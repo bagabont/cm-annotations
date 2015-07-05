@@ -9,6 +9,10 @@ var VideoAnnotationSchema = new mongoose.Schema({
     text: {type: String, required: true},
     start_time: {type: Number, required: true},
     end_time: {type: Number, required: true},
+    position: {
+        top: {type: Number},
+        left: {type: Number}
+    },
     comments: [CommentSchema]
 });
 
