@@ -1,0 +1,5 @@
+var server = require('../server')
+
+server.listen(process.env.PORT || 3030, function () {
+    console.log('Server [' + process.env.NODE_ENV + '] listening on port ' + server.address().port + '...');
+});
