@@ -1,4 +1,4 @@
-app.controller("AnnotationCtrl", ["annotations",
+app.controller('AnnotationCtrl', ['annotations',
         function (annotations) {
             this.config = {
                 sources: [{
@@ -8,3 +8,4 @@ app.controller("AnnotationCtrl", ["annotations",
             };
         }]
 );
+

@@ -1,9 +1,9 @@
-var app = angular.module("vgAnnotationApp", [
-    "ngSanitize",
-    "ngRoute",
-    "com.2fdevs.videogular",
-    "com.2fdevs.videogular.plugins.controls",
-    "info.vietnamcode.nampnq.videogular.plugins.youtube"
+var app = angular.module('vgAnnotationApp', [
+    'ngSanitize',
+    'ngRoute',
+    'com.2fdevs.videogular',
+    'com.2fdevs.videogular.plugins.controls',
+    'info.vietnamcode.nampnq.videogular.plugins.youtube'
 ]);
 
 app.factory('socket', function ($rootScope) {

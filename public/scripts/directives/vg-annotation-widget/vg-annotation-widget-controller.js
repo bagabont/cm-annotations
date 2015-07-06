@@ -1,5 +1,51 @@
-app.controller("vgAnnotationWidgetController", ["$scope",
+app.controller('vgAnnotationWidgetController', ['$scope',
     function ($scope) {
+
+        var self = this;
+        var timeLineEvents = [];
+
+        function addTimeLinePoint(annotation) {
+            var start = annotation.start;
+            var end = annotation.end;
+
+            var timeLineEvent = {};
+            timeLineEvent.timeLapse = {
+                start: start,
+                end: end
+            };
+
+            timeLineEvent.onLeave = self.onLeave.bind(this);
+            timeLineEvent.onUpdate = self.onUpdate.bind(this);
+            timeLineEvent.onComplete = self.onComplete.bind(this);
+
+            timeLineEvent.params = annotation;
+            timeLineEvent.params.index = timeLineEvent.length;
+
+            timeLineEvents.push(timeLineEvent);
+        }
+
+        $scope.addAnnotation = function (annotation) {
+            //TODO-remove mock, load read annotation
+            annotation = {
+                "id": 5,
+                "start": 3,
+                "end": 8,
+                "position": {
+                    "top": "10%",
+                    "left": "30%"
+                },
+                "size": {
+                    "height": "10%",
+                    "width": "20%"
+                },
+                "text": "To annotate, or not to annotate, that is the question: Whether 'tis Nobler in the mind to suffer",
+                "author": {
+                    "name": "William Shakespeare"
+                }
+            };
+            addTimeLinePoint(annotation);
+        };
+
         this.API = null;
 
         this.onPlayerReady = function onPlayerReady(API) {
@@ -7,34 +53,14 @@ app.controller("vgAnnotationWidgetController", ["$scope",
         };
 
         this.init = function init() {
-
-            var timelinePoints = [];
             for (var i = 0, l = $scope.vgConfig.annotations.length; i < l; i++) {
-                var annotation = $scope.vgConfig.annotations[i];
-
-                var start = annotation.start;
-                var end = annotation.end;
-
-                var timelinePoint = {};
-                timelinePoint.timeLapse = {
-                    start: start,
-                    end: end
-                };
-
-                timelinePoint.onLeave = this.onLeave.bind(this);
-                timelinePoint.onUpdate = this.onUpdate.bind(this);
-                timelinePoint.onComplete = this.onComplete.bind(this);
-
-                timelinePoint.params = $scope.vgConfig.annotations[i];
-                timelinePoint.params.index = i;
-
-                timelinePoints.push(timelinePoint);
+                addTimeLinePoint($scope.vgConfig.annotations[i]);
             }
 
             this.config = {
                 sources: $scope.vgConfig.sources,
                 cuePoints: {
-                    annotations: timelinePoints
+                    annotations: timeLineEvents
                 }
             };
         };
