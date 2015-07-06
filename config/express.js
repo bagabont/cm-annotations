@@ -15,7 +15,6 @@ var App = function () {
         layout: false
     });
 
-
     var site = require('../routes/site');
     app.use('/', site.index);
 
