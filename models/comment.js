@@ -1,23 +1,13 @@
 var mongoose = require('mongoose');
 
 var CommentSchema = new mongoose.Schema({
-    date_created: {
-        type: Date
-    },
-    date_removed: {
-        type: Date
-    },
-    author: {
-        type: String,
-        required: true
-    },
-    text: {
-        type: String,
-        required: true
-    }
+    date_created: {type: Date},
+    date_removed: {type: Date},
+    author: {type: String, required: true},
+    text: {type: String, required: true}
 });
 
-CommentSchema.pre('save', function(next) {
+CommentSchema.pre('save', function (next) {
     var now = Date.now();
     if (!this.date_created) {
         this.date_created = now;
@@ -26,7 +16,7 @@ CommentSchema.pre('save', function(next) {
     next();
 });
 
-CommentSchema.pre('update', function(next) {
+CommentSchema.pre('update', function (next) {
     this.date_modified = Date.now();
     next();
 });

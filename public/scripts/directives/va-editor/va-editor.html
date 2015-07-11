@@ -1,0 +1,15 @@
+<div id="editor-container">
+    <label for="va-text">Text:</label>
+    <br/>
+    <input id="va-text" type="text" value="{{source.text}}"/>
+    <br/>
+
+    <div id="time-container">
+        <label for="va-start">Start:</label>
+        <input id="va-start" type="time">
+
+        <label for="va-end">End:</label>
+        <input id="va-end" type="time">
+    </div>
+    <button type="button" ng-click="saveAnnotation()">Save</button>
+</div>
