@@ -1,5 +1,5 @@
 app.directive('vgAnnotationWidget',
-    function () {
+    function() {
         return {
             scope: {
                 vgConfig: '='
@@ -13,4 +13,3 @@ app.directive('vgAnnotationWidget',
         };
     }
 );
-

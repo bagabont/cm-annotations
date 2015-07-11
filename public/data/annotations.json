@@ -1,53 +1,49 @@
-[
-  {
+[{
     "id": 1,
     "start": 3,
     "end": 8,
     "position": {
-      "top": "10%",
-      "left": "30%"
+        "top": "10%",
+        "left": "30%"
     },
     "size": {
-      "height": "10%",
-      "width": "20%"
+        "height": "10%",
+        "width": "20%"
     },
     "text": "To annotate, or not to annotate, that is the question: Whether 'tis Nobler in the mind to suffer",
     "author": {
-      "name": "William Shakespeare"
+        "name": "William Shakespeare"
     }
-  },
-  {
+}, {
     "id": 2,
     "start": 10,
     "end": 20,
     "position": {
-      "top": "20%",
-      "left": "80%"
+        "top": "20%",
+        "left": "80%"
     },
     "size": {
-      "height": "10%",
-      "width": "20%"
+        "height": "10%",
+        "width": "20%"
     },
     "text": "Gimme some lyrics here!",
     "author": {
-      "name": "Bon Jovi"
+        "name": "Bon Jovi"
     }
-  },
-  {
+}, {
     "id": 3,
     "start": 80,
     "end": 100,
     "position": {
-      "top": "40%",
-      "left": "10%"
+        "top": "40%",
+        "left": "10%"
     },
     "size": {
-      "height": "10%",
-      "width": "30%"
+        "height": "10%",
+        "width": "30%"
     },
     "text": "@#$@#$!!!!@#@! #$#^%$&%*)(_++R&FHDH 1124 AHSshfhlsmhnkjrsnhrs.",
     "author": {
-      "name": "Toni Montana"
+        "name": "Toni Montana"
     }
-  }
-]
+}]

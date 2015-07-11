@@ -1,5 +1,5 @@
 app.controller('vgAnnotationWidgetController', ['$scope',
-    function ($scope) {
+    function($scope) {
 
         var self = this;
         var timeLineEvents = [];
@@ -24,7 +24,7 @@ app.controller('vgAnnotationWidgetController', ['$scope',
             timeLineEvents.push(timeLineEvent);
         }
 
-        $scope.addAnnotation = function (annotation) {
+        $scope.addAnnotation = function(annotation) {
             //TODO-remove mock, load read annotation
             annotation = {
                 "id": 5,
@@ -84,4 +84,5 @@ app.controller('vgAnnotationWidgetController', ['$scope',
         };
 
         this.init();
-    }]);
+    }
+]);

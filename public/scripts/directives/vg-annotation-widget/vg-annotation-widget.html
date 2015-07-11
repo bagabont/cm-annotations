@@ -16,10 +16,6 @@
 </videogular>
 <section class="annotations-container">
     <button ng-click="addAnnotation()">Add</button>
-
-    <vg-annotation vg-data-provider="annotation.params"
-                   ng-class="{selected: annotation.params.selected,completed: annotation.params.completed}"
-                   ng-click="ctrl.API.seekTime(ctrl.config.cuePoints.annotations[$index].timeLapse.start)"
-                   ng-repeat="annotation in ctrl.config.cuePoints.annotations">
+    <vg-annotation vg-data-provider="annotation.params" ng-class="{selected: annotation.params.selected,completed: annotation.params.completed}" ng-click="ctrl.API.seekTime(ctrl.config.cuePoints.annotations[$index].timeLapse.start)" ng-repeat="annotation in ctrl.config.cuePoints.annotations">
     </vg-annotation>
 </section>

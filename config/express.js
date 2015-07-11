@@ -2,7 +2,7 @@ var path = require('path'),
     express = require('express'),
     app = express();
 
-var App = function () {
+var App = function() {
     app.disable('x-powered-by');
     app.set('port', process.env.PORT || 3030);
 

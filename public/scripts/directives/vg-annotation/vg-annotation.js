@@ -1,5 +1,5 @@
 app.directive('vgAnnotation',
-    function () {
+    function() {
         return {
             scope: {
                 vgDataProvider: '='
