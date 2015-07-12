@@ -6,11 +6,10 @@ var app = angular.module('VideoAnnotations', [
     'info.vietnamcode.nampnq.videogular.plugins.youtube'
 ]);
 
-app.controller('VideoAnnotationsController', ['sources', 'annotations',
-    function (sources, annotations) {
+app.controller('VideoAnnotationsController', ['source',
+    function (source) {
         this.config = {
-            sources: sources.data,
-            annotations: annotations.data
+            source: source.data
         };
     }
 ]);

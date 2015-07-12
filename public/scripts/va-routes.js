@@ -6,11 +6,8 @@ app.config(["$routeProvider",
                 controller: 'VideoAnnotationsController',
                 controllerAs: "vaController",
                 resolve: {
-                    sources: ["$http", function ($http) {
+                    source: ['$http', function ($http) {
                         return $http.get('data/sources.json');
-                    }],
-                    annotations: ["$http", function ($http) {
-                        return $http.get('data/annotations.json');
                     }]
                 }
             });

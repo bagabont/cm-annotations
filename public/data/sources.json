@@ -1,5 +1,4 @@
-[
-  {
-    "src": "https://www.youtube.com/watch?v=YE7VzlLtp-4"
-  }
-]
+{
+  "id": "big-buck-bunny",
+  "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"
+}

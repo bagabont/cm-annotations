@@ -1,5 +1,5 @@
 <videogular vg-player-ready="vaWidgetController.onPlayerReady($API)" vg-cue-points="vaWidgetController.annotations">
-    <vg-media vg-src="vaWidgetController.sources" vg-youtube="rel=1;showinfo=1"></vg-media>
+    <vg-media vg-src="vaWidgetController.sources"></vg-media>
     <vg-controls>
         <vg-play-pause-button></vg-play-pause-button>
         <vg-time-display>{{ currentTime | date:'HH:mm:ss':'UTC' }}</vg-time-display>
@@ -16,7 +16,7 @@
 </videogular>
 <button type="button" ng-click="createAnnotation()">Add annotation</button>
 
-<va-editor source="selectedAnnotation"></va-editor>
+<va-editor annotation="selectedAnnotation"></va-editor>
 
 <section class="annotations-container">
     <video-annotation ng-repeat="annotation in vaWidgetController.annotations"

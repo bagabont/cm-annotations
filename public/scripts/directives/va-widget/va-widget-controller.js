@@ -1,36 +1,21 @@
-app.controller('VaWidgetController', ['$scope',
-    function ($scope) {
+app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
+    function ($scope, socket, $sce) {
         var controller = this;
 
-        function addAnnotationEvent(annotation) {
-            annotation.onLeave = controller.onLeave.bind(controller);
-            annotation.onUpdate = controller.onUpdate.bind(controller);
-            annotation.onComplete = controller.onComplete.bind(controller);
-            annotation.index = controller.annotations.length;
-
-            controller.annotations.push(annotation);
-        }
-
         $scope.createAnnotation = function () {
+            var defaultStartTime = Math.floor(controller.API.currentTime / 1000);
+            var defaultEndTime = defaultStartTime + 5;
 
-            // get current player position and convert it from ms to sec
-            var startTime = Math.floor(controller.API.currentTime / 1000);
-
-            var annotation = {
-                "start": startTime,
-                "end": startTime + 5,
-                "position": {
-                    "top": "10%",
-                    "left": "30%"
-                },
-                "size": {
-                    "height": "10%",
-                    "width": "20%"
-                },
-                "text": 'xa' // blank text
+            var defaultAnnotation = {
+                "start": defaultStartTime,
+                "end": defaultEndTime,
+                "position": {"top": "10%", "left": "30%"},
+                "size": {"height": "10%", "width": "20%"},
+                "text": '',
+                "author": "Anonymous",
+                "video_id": $scope.config.source.id
             };
-            addAnnotationEvent(annotation);
-            $scope.selectedAnnotation = annotation;
+            $scope.selectedAnnotation = defaultAnnotation;
         };
 
         $scope.selectAnnotation = function (annotation) {
@@ -43,14 +28,17 @@ app.controller('VaWidgetController', ['$scope',
         };
 
         controller.init = function () {
+            var videoSource = $scope.config.source;
+
             controller.API = null;
-            controller.annotations = [];
-            controller.sources = $scope.config.sources;
+            controller.sources = [{
+                src: $sce.trustAsResourceUrl(videoSource.src),
+                type: 'video/mp4'
+            }];
 
-            for (var i = 0, l = $scope.config.annotations.length; i < l; i++) {
-                addAnnotationEvent($scope.config.annotations[i]);
-            }
-
+            // IO request annotations
+            var params = {video_id: videoSource.id};
+            socket.emit('annotations:get', params);
         };
 
         controller.onLeave = function (currentTime, timeLapse, annotation) {
@@ -70,7 +58,23 @@ app.controller('VaWidgetController', ['$scope',
             }
         };
 
-        // Initialize controller
+        socket.on('annotations:updated', function (annotations) {
+            controller.selectedAnnotation = null;
+            controller.annotations = []; // clear current state
+
+            _.sortBy(annotations, 'start')
+                .forEach(function (annotation) {
+                    annotation.onLeave = controller.onLeave.bind(controller);
+                    annotation.onUpdate = controller.onUpdate.bind(controller);
+                    annotation.onComplete = controller.onComplete.bind(controller);
+                    annotation.index = controller.annotations.length;
+
+                    controller.annotations.push(annotation);
+                });
+        });
+
+// Initialize controller
         controller.init();
     }
-]);
+])
+;

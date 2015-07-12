@@ -7,9 +7,12 @@
     "postinstall": "bower install"
   },
   "dependencies": {
+    "asyncawait": "^0.7.4",
     "bower": "^1.4.1",
     "ejs": "~2.3.1",
     "express": "~4.13.0",
+    "lodash": "^3.10.0",
+    "mongoose": "^4.0.7",
     "socket.io": "^1.3.5"
   }
 }

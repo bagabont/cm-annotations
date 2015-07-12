@@ -1,7 +1,7 @@
 app.directive('vaEditor', function () {
     return {
         scope: {
-            source: '='
+            annotation: '='
         },
 
         templateUrl: 'scripts/directives/va-editor/va-editor.html',
