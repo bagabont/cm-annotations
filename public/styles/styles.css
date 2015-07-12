@@ -13,25 +13,25 @@
     box-sizing: border-box;
 }
 
-vg-annotation {
+video-annotation {
     display: block;
     cursor: pointer;
     font-family: Calibri, Helvetica, Arial, serif;
 }
 
-vg-annotation article {
+video-annotation article {
     padding: 10px 10px 40px 10px;
 }
 
-vg-annotation article footer {
+video-annotation article footer {
     position: relative;
 }
 
-vg-annotation article footer h4 {
+video-annotation article footer h4 {
     margin: 0;
 }
 
-vg-annotation article footer .author {
+video-annotation article footer .author {
     display: inline-block;
     margin: 0;
     right: 0;
@@ -40,15 +40,15 @@ vg-annotation article footer .author {
     position: absolute;
 }
 
-vg-annotation:hover {
+video-annotation:hover {
     background-color: #EEEEEE;
 }
 
-vg-annotation.selected {
+video-annotation.selected {
     background-color: #C0DEED;
 }
 
-vg-annotation.completed {
+video-annotation.completed {
     opacity: 0.3;
 }
 
