@@ -45,7 +45,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         };
 
         controller.init = function () {
-            controller.cuePoints = {annotations: []};
+            controller.cuePoints = {points: []};
             controller.annotations = [];
             controller.API = null;
 
@@ -62,23 +62,28 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
 
         socket.on('annotations:updated', function (annotations) {
             controller.selectedAnnotation = null;
-            controller.annotations = []; // clear current state
+
+            // clear current state
+            controller.annotations = [];
+            controller.cuePoints.points = [];
 
             _.sortBy(annotations, 'start')
                 .forEach(function (annotation) {
 
-                    annotation.timeLapse = {
-                        start: annotation.start,
-                        end: annotation.end
+                    var cuePoint = {
+                        timeLapse: {
+                            start: annotation.start,
+                            end: annotation.end
+                        },
+                        onLeave: onLeave,
+                        onUpdate: onUpdate,
+                        onComplete: onComplete,
+                        params: annotation
                     };
-                    annotation.params = annotation;
 
-                    annotation.onLeave = onLeave;
-                    annotation.onUpdate = onUpdate;
-                    annotation.onComplete = onComplete;
 
                     controller.annotations.push(annotation);
-                    controller.cuePoints.annotations.push(annotation);
+                    controller.cuePoints.points.push(cuePoint);
                 });
         });
 
