@@ -2,6 +2,23 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
     function ($scope, socket, $sce) {
         var controller = this;
 
+        var onLeave = function onLeave(currentTime, timeLapse, params) {
+            params.completed = false;
+            params.selected = false;
+        };
+
+        var onComplete = function onComplete(currentTime, timeLapse, params) {
+            params.completed = true;
+            params.selected = false;
+        };
+
+        var onUpdate = function onUpdate(currentTime, timeLapse, params) {
+            if (!params.selected) {
+                params.completed = false;
+                params.selected = true;
+            }
+        };
+
         $scope.createAnnotation = function () {
             var defaultStartTime = Math.floor(controller.API.currentTime / 1000);
             var defaultEndTime = defaultStartTime + 5;
@@ -28,9 +45,11 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         };
 
         controller.init = function () {
-            var videoSource = $scope.config.source;
-
+            controller.cuePoints = {annotations: []};
+            controller.annotations = [];
             controller.API = null;
+
+            var videoSource = $scope.config.source;
             controller.sources = [{
                 src: $sce.trustAsResourceUrl(videoSource.src),
                 type: 'video/mp4'
@@ -41,41 +60,28 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             socket.emit('annotations:get', params);
         };
 
-        controller.onLeave = function (currentTime, timeLapse, annotation) {
-            annotation.completed = false;
-            annotation.selected = false;
-        };
-
-        controller.onComplete = function (currentTime, timeLapse, annotation) {
-            annotation.completed = true;
-            annotation.selected = false;
-            console.log('completed' + annotation)
-        };
-
-        controller.onUpdate = function (currentTime, timeLapse, annotation) {
-            if (!annotation.selected) {
-                annotation.completed = false;
-                annotation.selected = true;
-            }
-        };
-
         socket.on('annotations:updated', function (annotations) {
             controller.selectedAnnotation = null;
             controller.annotations = []; // clear current state
 
             _.sortBy(annotations, 'start')
                 .forEach(function (annotation) {
-                    annotation.onLeave = controller.onLeave.bind(controller);
-                    annotation.onUpdate = controller.onUpdate.bind(controller);
-                    annotation.onComplete = controller.onComplete.bind(controller);
-                    annotation.index = controller.annotations.length;
+
+                    annotation.timeLapse = {
+                        start: annotation.start,
+                        end: annotation.end
+                    };
+                    annotation.params = annotation;
+
+                    annotation.onLeave = onLeave;
+                    annotation.onUpdate = onUpdate;
+                    annotation.onComplete = onComplete;
 
                     controller.annotations.push(annotation);
+                    controller.cuePoints.annotations.push(annotation);
                 });
         });
 
-// Initialize controller
         controller.init();
     }
-])
-;
+]);
