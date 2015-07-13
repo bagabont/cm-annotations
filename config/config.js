@@ -5,7 +5,13 @@ var path = require('path'),
 
 var Db = function () {
     this.connect = function () {
-        var connectionString = 'mongodb://localhost:27017/course-mapper';
+
+
+        var dbUser = process.env.DB_USER;
+        var dbPass = process.env.DB_PASS;
+
+        var connectionString = 'mongodb://' + dbUser + ':' + dbPass + '@ds031319.mongolab.com:31319/cm-annotations';
+        //var connectionString = 'mongodb://localhost:27017/course-mapper';
 
         // connect to database
         console.log('Connecting to database ' + connectionString + ' ...');

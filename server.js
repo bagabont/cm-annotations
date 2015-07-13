@@ -1,5 +1,4 @@
 var http = require('http'),
-
     config = require('./config/config');
 
 config.Db.connect();

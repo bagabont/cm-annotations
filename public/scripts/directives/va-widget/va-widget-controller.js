@@ -49,6 +49,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         controller.onComplete = function (currentTime, timeLapse, annotation) {
             annotation.completed = true;
             annotation.selected = false;
+            console.log('completed' + annotation)
         };
 
         controller.onUpdate = function (currentTime, timeLapse, annotation) {
