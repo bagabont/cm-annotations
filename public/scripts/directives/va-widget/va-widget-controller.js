@@ -2,20 +2,37 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
     function ($scope, socket, $sce) {
         var controller = this;
 
+        $scope.inlineAnnotations = [];
+
         var onLeave = function onLeave(currentTime, timeLapse, params) {
             params.completed = false;
             params.selected = false;
+
+            var i = $scope.inlineAnnotations.indexOf(params);
+            if (i != -1) {
+                $scope.inlineAnnotations.splice(i, 1);
+            }
         };
 
         var onComplete = function onComplete(currentTime, timeLapse, params) {
             params.completed = true;
             params.selected = false;
+
+            var i = $scope.inlineAnnotations.indexOf(params);
+            if (i != -1) {
+                $scope.inlineAnnotations.splice(i, 1);
+            }
         };
 
         var onUpdate = function onUpdate(currentTime, timeLapse, params) {
             if (!params.selected) {
                 params.completed = false;
                 params.selected = true;
+
+                var i = $scope.inlineAnnotations.indexOf(params);
+                if (i == -1) {
+                    $scope.inlineAnnotations.push(params);
+                }
             }
         };
 

@@ -1,28 +1,37 @@
-<videogular vg-player-ready="vaWidgetController.onPlayerReady($API)"
-            vg-cue-points="vaWidgetController.cuePoints">
-    <vg-media vg-src="vaWidgetController.sources"></vg-media>
-    <vg-controls>
-        <vg-play-pause-button></vg-play-pause-button>
-        <vg-time-display>{{ currentTime | date:'HH:mm:ss':'UTC' }}</vg-time-display>
-        <vg-scrub-bar>
-            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-        </vg-scrub-bar>
-        <vg-time-display>{{ totalTime | date:'HH:mm:ss':'UTC'}}</vg-time-display>
-        <vg-volume>
-            <vg-mute-button></vg-mute-button>
-            <vg-volume-bar></vg-volume-bar>
-        </vg-volume>
-        <vg-fullscreen-button></vg-fullscreen-button>
-    </vg-controls>
-</videogular>
-<button type="button" ng-click="createAnnotation()">Add annotation</button>
-
-<va-editor annotation="selectedAnnotation"></va-editor>
-
-<section class="annotations-container">
-    <video-annotation ng-repeat="annotation in vaWidgetController.annotations"
-                      source="annotation"
-                      ng-class="{selected: annotation.selected, completed: annotation.completed}"
-                      ng-click="selectAnnotation(annotation)">
-    </video-annotation>
-</section>
+<div class="col-sm-8">
+    <videogular vg-player-ready="vaWidgetController.onPlayerReady($API)"
+                vg-cue-points="vaWidgetController.cuePoints">
+        <vg-media vg-src="vaWidgetController.sources"></vg-media>
+        <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-time-display>{{ currentTime | date:'HH:mm:ss':'UTC' }}</vg-time-display>
+            <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display>{{ totalTime | date:'HH:mm:ss':'UTC'}}</vg-time-display>
+            <vg-volume>
+                <vg-mute-button></vg-mute-button>
+                <vg-volume-bar></vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
+        </vg-controls>
+        <div id="inline-va-container">
+            <div ng-repeat="iva in inlineAnnotations">
+                <div class="inline-annotation resizable" draggable="true">
+                    <span>{{iva.text}}</span>
+                </div>
+            </div>
+        </div>
+    </videogular>
+</div>
+<div class="col-sm-4">
+    <button type="button" ng-click="createAnnotation()">Add annotation</button>
+    <va-editor annotation="selectedAnnotation"></va-editor>
+    <section class="annotations-container">
+        <video-annotation ng-repeat="annotation in vaWidgetController.annotations"
+                          source="annotation"
+                          ng-class="{selected: annotation.selected, completed: annotation.completed}"
+                          ng-click="selectAnnotation(annotation)">
+        </video-annotation>
+    </section>
+</div>
