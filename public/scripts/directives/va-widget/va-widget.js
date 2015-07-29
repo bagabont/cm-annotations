@@ -1,5 +1,5 @@
 app.directive('vaWidget',
-    function () {
+    function() {
         return {
             scope: {
                 config: '='
@@ -11,30 +11,39 @@ app.directive('vaWidget',
     }
 );
 
-app.directive('draggable', function () {
+app.directive('resizable', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            if (attrs.resizable !== 'true') {
+                return;
+            }
+            element.resizable();
+        }
+    };
+});
+
+app.directive('draggable', function() {
     return {
         restrict: 'A',
         scope: {
             xpos: '=',
             ypos: '='
         },
-        link: function (scope, element, attrs) {
-            console.log(attrs.draggable)
+        link: function(scope, element, attrs) {
             if (attrs.draggable !== 'true') {
                 return;
             }
-
-            console.log('making draggable')
-            // convert element to draggable
             element.draggable({
-                cursor: "move",
-                stop: function (event, ui) {
+                containment: 'parent',
+                cursor: 'move',
+                stop: function(event, ui) {
                     scope.xpos = ui.position.left;
                     scope.ypos = ui.position.top;
                 }
             });
 
-            scope.$on('$destroy', function () {
+            scope.$on('$destroy', function() {
                 // remove event handlers
                 element.off('**');
             });

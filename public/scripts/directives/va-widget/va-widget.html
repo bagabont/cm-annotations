@@ -17,11 +17,19 @@
          <!-- <vg-overlay-play></vg-overlay-play> -->
         <div id="inline-va-container">
             <div ng-repeat="item in inlineAnnotations"
+                 class="inline-va-annotation" 
                  ng-click="selectAnnotation(item, false)"
                  xpos="selectedAnnotation.position.left"
                  ypos="selectedAnnotation.position.top"
                  draggable="true"
-                 ng-style="{top: item.position.top + 'px', left: item.position.left + 'px'}">
+                 resizable="true"
+                 ng-style="
+                  {
+                    top: item.position.top + 'px', 
+                    left: item.position.left + 'px',
+                    width: item.size.width + 'px',
+                    heigth: item.size.heigth + 'px'
+                  }">
                 <span>{{item.text}}</span>
             </div>
         </div>
