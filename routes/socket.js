@@ -28,7 +28,8 @@ module.exports = function (server) {
                 annotation.end = params.annotation.end;
                 annotation.text = params.annotation.text;
                 annotation.position = params.annotation.position;
-                
+                annotation.is_inline = params.annotation.is_inline;
+
                 // save to DB
                 await(annotation.save());
             }
@@ -36,7 +37,7 @@ module.exports = function (server) {
             else {
                 annotation = await(VideoAnnotation.create(params.annotation));
             }
-            
+
             var videoId = annotation.video_id;
             var annotations = await(getAnnotationsAsync(videoId));
 
@@ -53,7 +54,7 @@ module.exports = function (server) {
                 if (!annotation) {
                     return;
                 }
-                
+
                 var videoId = annotation.video_id;
 
                 // remove annotation from db

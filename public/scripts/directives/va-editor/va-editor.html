@@ -3,18 +3,25 @@
     <br/>
     <input id="va-text" type="text" ng-model="annotation.text" />
     <br/>
-    <div id="time-container">
-        <label for="va-start">Start:</label>
-        <input id="va-start" ng-model="annotation.start">
-        <label for="va-end">End:</label>
-        <input id="va-end" ng-model="annotation.end">
-    </div>
-    <div id="position-container">
-        <label for="va-left">Left:</label>
-        <input ng-model="annotation.position.left">
-        <label for="va-top">Top:</label>
-        <input ng-model="annotation.position.top">
-    </div>
-    <button type="button" ng-click="saveAnnotation()" ng-show="annotation">Save</button>
+    <label for="va-start">Start:</label>
+    <br/>
+    <input id="va-start" ng-model="annotation.start">
+    <br/>
+    <label for="va-end">End:</label>
+    <br/>
+    <input id="va-end" ng-model="annotation.end">
+    <br/>
+    <label for="va-left">Left:</label>
+    <br/>
+    <input id="va-left" ng-model="annotation.position.left">
+    <br/>
+    <label for="va-top">Top:</label>
+    <br/>
+    <input id="va-top" ng-model="annotation.position.top">
+    <br/>
+    <label for="is-inline">Inline:</label>
+    <input id="is-inline" type="checkbox" ng-model="annotation.is_inline" />
+    <br/>
+    <button type="submit" ng-click="saveAnnotation()" ng-show="annotation && annotation.text.length > 0">Save</button>
     <button type="button" ng-click="deleteAnnotation()" ng-show="annotation">Delete</button>
 </div>

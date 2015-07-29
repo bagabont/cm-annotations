@@ -3,6 +3,7 @@ var app = angular.module('VideoAnnotations', [
     'ngRoute',
     'com.2fdevs.videogular',
     'com.2fdevs.videogular.plugins.controls',
+    'com.2fdevs.videogular.plugins.overlayplay',
     'info.vietnamcode.nampnq.videogular.plugins.youtube'
 ]);
 

@@ -1,5 +1,5 @@
 app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
-    function ($scope, socket, $sce) {
+    function($scope, socket, $sce) {
 
         var onLeave = function onLeave(currentTime, timeLapse, params) {
             params.completed = false;
@@ -27,22 +27,25 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             if (!params.selected) {
                 params.completed = false;
                 params.selected = true;
+
                 // add to inline annotations
-                var i = $scope.inlineAnnotations.indexOf(params);
-                if (i === -1) {
-                    $scope.inlineAnnotations.push(params);
+                if (params.is_inline) {
+                    var i = $scope.inlineAnnotations.indexOf(params);
+                    if (i === -1) {
+                        $scope.inlineAnnotations.push(params);
+                    }
                 }
             }
         };
 
-        $scope.createAnnotation = function () {
+        $scope.createAnnotation = function() {
             // get current playback time
-            var defaultStartTime = Math.floor($scope.API.currentTime / 1000);
-            var defaultEndTime = defaultStartTime + 5;
+            var startTime = Math.floor($scope.API.currentTime / 1000);
+            var endTime = startTime + 5;
 
             var defaultAnnotation = {
-                "start": defaultStartTime,
-                "end": defaultEndTime,
+                "start": startTime,
+                "end": endTime,
                 "position": {
                     "top": "100",
                     "left": "100"
@@ -51,25 +54,26 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                     "height": "200",
                     "width": "200"
                 },
+                "is_inline": true,
                 "text": '',
                 "author": "Anonymous", //TODO - get author
                 "video_id": $scope.config.source.id
             };
-            $scope.selectedAnnotation = defaultAnnotation;
+            $scope.selectAnnotation(defaultAnnotation, false);
         };
 
-        $scope.selectAnnotation = function (annotation, seek) {
-            if (seek === true) {
+        $scope.selectAnnotation = function(annotation, seekTime) {
+            if (seekTime === true) {
                 $scope.API.seekTime(annotation.start);
             }
             $scope.selectedAnnotation = annotation;
         };
 
-        $scope.onPlayerReady = function (API) {
+        $scope.onPlayerReady = function(API) {
             $scope.API = API;
         };
 
-        this.init = function () {
+        this.init = function() {
             $scope.cuePoints = {
                 points: []
             };
@@ -90,7 +94,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             socket.emit('annotations:get', params);
         };
 
-        socket.on('annotations:updated', function (annotations) {
+        socket.on('annotations:updated', function(annotations) {
 
             // clear current annotations state
             $scope.annotations = [];
@@ -99,7 +103,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             $scope.selectedAnnotation = null;
 
             _.sortBy(annotations, 'start')
-                .forEach(function (annotation) {
+                .forEach(function(annotation) {
                     var cuePoint = {
                         timeLapse: {
                             start: annotation.start,

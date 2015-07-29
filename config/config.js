@@ -3,38 +3,40 @@ var path = require('path'),
     mongoose = require('mongoose'),
     app = express();
 
-var Db = function () {
+var Db = function() {
+    this.connect = function() {
+        var nodeEnv = process.env.NODE_ENV || 'development';
 
-    this.connect = function () {
-
-        var dbUser = process.env.DB_USER;
-        var dbPass = process.env.DB_PASS;
-
-        // var connectionString = 'mongodb://' + dbUser + ':' + dbPass + '@ds031319.mongolab.com:31319/cm-annotations';
-        var connectionString = 'mongodb://localhost:27017/course-mapper';
+        var connectionString = '';
+        if (nodeEnv === 'production') {
+            var dbUser = process.env.DB_USER;
+            var dbPass = process.env.DB_PASS;
+            connectionString = 'mongodb://' + dbUser + ':' + dbPass + '@ds031319.mongolab.com:31319/cm-annotations';
+        } else {
+            connectionString = 'mongodb://localhost:27017/course-mapper';
+        }
 
         // connect to database
         console.log('Connecting to database ' + connectionString + ' ...');
-
         mongoose.connect(connectionString);
 
-        var db = mongoose.connection;
-        db.once('open', function (err) {
+        var dbConnection = mongoose.connection;
+        dbConnection.once('open', function(err) {
             if (err) {
-                console.log('Database connection could not be open: ' + err);
+                console.log('Database connection failed: ' + err);
                 return;
             }
             console.log('Database up and running.');
         });
 
         // error handler
-        db.on('error', function (err) {
+        dbConnection.on('error', function(err) {
             console.log('Database error: ' + err);
         });
     };
 };
 
-var App = function () {
+var App = function() {
     app.disable('x-powered-by');
     app.set('port', process.env.PORT || 3030);
 

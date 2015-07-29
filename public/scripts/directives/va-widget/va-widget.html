@@ -14,12 +14,13 @@
             </vg-volume>
             <vg-fullscreen-button></vg-fullscreen-button>
         </vg-controls>
+         <!-- <vg-overlay-play></vg-overlay-play> -->
         <div id="inline-va-container">
             <div ng-repeat="item in inlineAnnotations"
                  ng-click="selectAnnotation(item, false)"
-                 xpos="item.position.left"
-                 ypos="item.position.top"
-                 draggable
+                 xpos="selectedAnnotation.position.left"
+                 ypos="selectedAnnotation.position.top"
+                 draggable="true"
                  ng-style="{top: item.position.top + 'px', left: item.position.left + 'px'}">
                 <span>{{item.text}}</span>
             </div>
@@ -28,9 +29,10 @@
 </div>
 <div class="col-sm-4">
     <button type="button" ng-click="createAnnotation()">Add annotation</button>
-    <va-editor annotation="selectedAnnotation"></va-editor>
+    <va-editor ng-show="selectedAnnotation!=null" annotation="selectedAnnotation"></va-editor>
     <section class="annotations-container">
-        <video-annotation ng-repeat="annotation in annotations" source="annotation"
+        <video-annotation ng-repeat="annotation in annotations"
+                          source="annotation"
                           ng-class="{selected: annotation.selected, completed: annotation.completed}"
                           ng-click="selectAnnotation(annotation, true)"></video-annotation>
     </section>
