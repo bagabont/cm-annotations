@@ -1,7 +1,6 @@
 <div class="col-sm-8">
-    <videogular vg-player-ready="vaWidgetController.onPlayerReady($API)"
-                vg-cue-points="vaWidgetController.cuePoints">
-        <vg-media vg-src="vaWidgetController.sources"></vg-media>
+    <videogular vg-player-ready="onPlayerReady($API)" vg-cue-points="cuePoints">
+        <vg-media vg-src="sources"></vg-media>
         <vg-controls>
             <vg-play-pause-button></vg-play-pause-button>
             <vg-time-display>{{ currentTime | date:'HH:mm:ss':'UTC' }}</vg-time-display>
@@ -16,10 +15,13 @@
             <vg-fullscreen-button></vg-fullscreen-button>
         </vg-controls>
         <div id="inline-va-container">
-            <div ng-repeat="iva in inlineAnnotations">
-                <div class="inline-annotation resizable" draggable="true">
-                    <span>{{iva.text}}</span>
-                </div>
+            <div ng-repeat="item in inlineAnnotations"
+                 ng-click="selectAnnotation(item, false)"
+                 xpos="item.position.left"
+                 ypos="item.position.top"
+                 draggable
+                 ng-style="{top: item.position.top + 'px', left: item.position.left + 'px'}">
+                <span>{{item.text}}</span>
             </div>
         </div>
     </videogular>
@@ -28,10 +30,8 @@
     <button type="button" ng-click="createAnnotation()">Add annotation</button>
     <va-editor annotation="selectedAnnotation"></va-editor>
     <section class="annotations-container">
-        <video-annotation ng-repeat="annotation in vaWidgetController.annotations"
-                          source="annotation"
+        <video-annotation ng-repeat="annotation in annotations" source="annotation"
                           ng-class="{selected: annotation.selected, completed: annotation.completed}"
-                          ng-click="selectAnnotation(annotation)">
-        </video-annotation>
+                          ng-click="selectAnnotation(annotation, true)"></video-annotation>
     </section>
 </div>

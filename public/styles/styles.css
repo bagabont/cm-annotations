@@ -23,25 +23,6 @@
     height: 100%;
 }
 
-.inline-annotation {
-    display: inline-block;
-    position: absolute;
-    width: auto;
-    background: white;
-    font-family: Calibri, Helvetica, Arial, serif;
-}
-
-[draggable=true] {
-    cursor: move;
-}
-
-.resizable {
-    overflow: scroll;
-    resize: both;
-    max-width: 300px;
-    max-height: 460px;
-}
-
 video-annotation {
     display: block;
     cursor: pointer;
@@ -80,15 +61,3 @@ video-annotation.completed {
     -webkit-transition: 0.5s linear all;
     transition: 0.5s ease-out all;
 }
-
-/*@media (min-width: 768px) {*/
-/*.videogular-container {*/
-/*width: 728px;*/
-/*height: 409px;*/
-/*}*/
-
-/*.videogular-container.audio {*/
-/*width: 728px;*/
-/*height: 50px;*/
-/*}*/
-/*}*/

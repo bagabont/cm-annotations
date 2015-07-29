@@ -19,16 +19,24 @@ module.exports = function (server) {
         }));
 
         socket.on('annotations:save', async(function (params) {
+            // find annotation model from DB
             var annotation = await(VideoAnnotation.findById(params.annotation._id).exec());
+
+            // update annotation model
             if (annotation) {
                 annotation.start = params.annotation.start;
                 annotation.end = params.annotation.end;
                 annotation.text = params.annotation.text;
+                annotation.position = params.annotation.position;
+                
+                // save to DB
                 await(annotation.save());
             }
+            // create new model in DB
             else {
                 annotation = await(VideoAnnotation.create(params.annotation));
             }
+            
             var videoId = annotation.video_id;
             var annotations = await(getAnnotationsAsync(videoId));
 
