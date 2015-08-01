@@ -11,40 +11,40 @@ app.directive('vaWidget',
     }
 );
 
-app.directive('resizable', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            if (attrs.resizable !== 'true') {
-                return;
-            }
-            element.resizable();
-        }
-    };
-});
-
-app.directive('draggable', function() {
+app.directive('movable', function() {
     return {
         restrict: 'A',
         scope: {
-            xpos: '=',
-            ypos: '='
+            onResized: '=',
+            onDragged: '='
         },
         link: function(scope, element, attrs) {
-            if (attrs.draggable !== 'true') {
-                return;
-            }
-            element.draggable({
-                containment: 'parent',
-                cursor: 'move',
-                stop: function(event, ui) {
-                    scope.xpos = ui.position.left;
-                    scope.ypos = ui.position.top;
-                }
-            });
 
+            if (attrs.draggable === 'true') {
+                element.draggable({
+                    containment: 'parent',
+                    cursor: 'move',
+                    stop: function(event, ui) {
+                        if (scope.onDragged) {
+                            scope.onDragged(ui.position);
+                        }
+                    }
+                });
+            }
+
+            if (attrs.resizable === 'true') {
+                element.resizable({
+                    handles: 'ne, se, sw, nw',
+                    stop: function(event, ui) {
+                        if (scope.onResized) {
+                            scope.onResized(ui.size);
+                        }
+                    }
+                });
+            }
+
+            // remove event handlers
             scope.$on('$destroy', function() {
-                // remove event handlers
                 element.off('**');
             });
         }

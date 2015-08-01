@@ -19,10 +19,11 @@
             <div ng-repeat="item in inlineAnnotations"
                  class="inline-va-annotation" 
                  ng-click="selectAnnotation(item, false)"
-                 xpos="selectedAnnotation.position.left"
-                 ypos="selectedAnnotation.position.top"
+                 movable
                  draggable="true"
                  resizable="true"
+                 on-dragged="changeAnnotationPosition"
+                 on-resized="changeAnnotationSize"
                  ng-style="
                   {
                     top: item.position.top + 'px', 

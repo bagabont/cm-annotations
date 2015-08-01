@@ -69,6 +69,14 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             $scope.selectedAnnotation = annotation;
         };
 
+        $scope.changeAnnotationPosition = function(position) {
+            console.log(position);
+        };
+
+        $scope.changeAnnotationSize = function(size) {
+            console.log(size);
+        };
+
         $scope.onPlayerReady = function(API) {
             $scope.API = API;
         };
