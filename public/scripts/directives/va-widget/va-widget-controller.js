@@ -32,6 +32,12 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                 if (params.is_inline) {
                     var i = $scope.inlineAnnotations.indexOf(params);
                     if (i === -1) {
+                        params.changeSize = function(size) {
+                            params.size = size;
+                        };
+                        params.changePosition = function(position) {
+                            params.position = position;
+                        };
                         $scope.inlineAnnotations.push(params);
                     }
                 }
@@ -67,14 +73,6 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                 $scope.API.seekTime(annotation.start);
             }
             $scope.selectedAnnotation = annotation;
-        };
-
-        $scope.changeAnnotationPosition = function(position) {
-            console.log(position);
-        };
-
-        $scope.changeAnnotationSize = function(size) {
-            console.log(size);
         };
 
         $scope.onPlayerReady = function(API) {

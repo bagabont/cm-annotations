@@ -24,7 +24,8 @@
 
 .inline-va-annotation {
     background: #9D9D9D;
-    color: #FFFFFF
+    color: #FFFFFF;
+    position: absolute;
 }
 
 video-annotation {

@@ -20,6 +20,7 @@ app.directive('movable', function() {
         },
         link: function(scope, element, attrs) {
 
+            // draggable
             if (attrs.draggable === 'true') {
                 element.draggable({
                     containment: 'parent',
@@ -32,6 +33,7 @@ app.directive('movable', function() {
                 });
             }
 
+            // resizable
             if (attrs.resizable === 'true') {
                 element.resizable({
                     handles: 'ne, se, sw, nw',

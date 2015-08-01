@@ -22,8 +22,8 @@
                  movable
                  draggable="true"
                  resizable="true"
-                 on-dragged="changeAnnotationPosition"
-                 on-resized="changeAnnotationSize"
+                 on-dragged="item.changePosition"
+                 on-resized="item.changeSize"
                  ng-style="
                   {
                     top: item.position.top + 'px', 
