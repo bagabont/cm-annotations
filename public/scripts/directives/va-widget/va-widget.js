@@ -27,7 +27,12 @@ app.directive('movable', function() {
                     cursor: 'move',
                     stop: function(event, ui) {
                         if (scope.onDragged) {
-                            scope.onDragged(ui.position);
+                            var l = (100 * parseFloat($(this).css("left")) / parseFloat($(this).parent().css("width")));
+                            var t = (100 * parseFloat($(this).css("top")) / parseFloat($(this).parent().css("height")));
+                            scope.onDragged({
+                                left: l,
+                                top: t
+                            });
                         }
                     }
                 });

@@ -16,21 +16,21 @@
         </vg-controls>
          <!-- <vg-overlay-play></vg-overlay-play> -->
         <div id="inline-va-container">
-            <div ng-repeat="item in inlineAnnotations"
+            <div ng-repeat="item in annotations | filter:{is_inline:true}"
                  class="inline-va-annotation" 
                  ng-click="selectAnnotation(item, false)"
                  movable
                  draggable="true"
+                 ng-show="item.selected"
                  resizable="true"
                  on-dragged="item.changePosition"
                  on-resized="item.changeSize"
-                 ng-style="
-                  {
-                    top: item.position.top + 'px', 
-                    left: item.position.left + 'px',
+                 ng-style="{
+                    display: block,
+                    top: item.position.top + '%', 
+                    left: item.position.left + '%',
                     width: item.size.width + 'px',
-                    heigth: item.size.heigth + 'px'
-                  }">
+                    heigth: item.size.height + 'px'}">
                 <span>{{item.text}}</span>
             </div>
         </div>

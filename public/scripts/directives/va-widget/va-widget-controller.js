@@ -4,43 +4,17 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         var onLeave = function onLeave(currentTime, timeLapse, params) {
             params.completed = false;
             params.selected = false;
-
-            // clear expired annotations
-            var i = $scope.inlineAnnotations.indexOf(params);
-            if (i !== -1) {
-                $scope.inlineAnnotations.splice(i, 1);
-            }
         };
 
         var onComplete = function onComplete(currentTime, timeLapse, params) {
             params.completed = true;
             params.selected = false;
-
-            // clear expired annotations
-            var i = $scope.inlineAnnotations.indexOf(params);
-            if (i !== -1) {
-                $scope.inlineAnnotations.splice(i, 1);
-            }
         };
 
         var onUpdate = function onUpdate(currentTime, timeLapse, params) {
             if (!params.selected) {
                 params.completed = false;
                 params.selected = true;
-
-                // add to inline annotations
-                if (params.is_inline) {
-                    var i = $scope.inlineAnnotations.indexOf(params);
-                    if (i === -1) {
-                        params.changeSize = function(size) {
-                            params.size = size;
-                        };
-                        params.changePosition = function(position) {
-                            params.position = position;
-                        };
-                        $scope.inlineAnnotations.push(params);
-                    }
-                }
             }
         };
 
@@ -53,12 +27,12 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                 "start": startTime,
                 "end": endTime,
                 "position": {
-                    "top": "100",
-                    "left": "100"
+                    "top": "50",
+                    "left": "50"
                 },
                 "size": {
-                    "height": "200",
-                    "width": "200"
+                    "height": "10",
+                    "width": "20"
                 },
                 "is_inline": true,
                 "text": '',
@@ -73,6 +47,20 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                 $scope.API.seekTime(annotation.start);
             }
             $scope.selectedAnnotation = annotation;
+            // add to inline annotations
+            if (annotation.is_inline) {
+                var i = $scope.inlineAnnotations.indexOf(annotation);
+                if (i === -1) {
+                    //TODO 
+                    annotation.changeSize = function(size) {
+                        annotation.size = size;
+                    };
+                    annotation.changePosition = function(position) {
+                        annotation.position = position;
+                    };
+                    $scope.inlineAnnotations.push(annotation);
+                }
+            }
         };
 
         $scope.onPlayerReady = function(API) {

@@ -33,7 +33,7 @@ module.exports = function(server) {
                 annotation.position = model.position;
                 annotation.size = model.size;
                 annotation.is_inline = model.is_inline;
-                console.log(annotation);
+                
                 // save to DB
                 await (annotation.save());
             }
