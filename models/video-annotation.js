@@ -9,7 +9,7 @@ var VideoAnnotationSchema = new mongoose.Schema({
     text: {type: String, required: true},
     start: {type: Number, required: true},
     end: {type: Number, required: true},
-    is_inline: {type: Boolean},
+    type: {type: String, enum: ['embedded-note', 'note'], required: true},
     position: {
         top: {type: String},
         left: {type: String}

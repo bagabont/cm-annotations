@@ -14,23 +14,14 @@
             </vg-volume>
             <vg-fullscreen-button></vg-fullscreen-button>
         </vg-controls>
-         <!-- <vg-overlay-play></vg-overlay-play> -->
+        <!-- <vg-overlay-play></vg-overlay-play> -->
         <div id="inline-va-container">
-            <div ng-repeat="item in annotations | filter:{is_inline:true}"
-                 class="inline-va-annotation" 
-                 ng-click="selectAnnotation(item, false)"
-                 movable
-                 draggable="true"
-                 ng-show="item.selected"
-                 resizable="true"
-                 on-dragged="item.changePosition"
-                 on-resized="item.changeSize"
-                 ng-style="{
-                    display: block,
+            <div movable on-moved="item.reposition" ng-repeat="item in annotations | filter:{type: embedded}"
+                 class="inline-va-annotation" ng-show="item.showing" ng-click="selectAnnotation(item, false)" ng-style="{
                     top: item.position.top + '%', 
                     left: item.position.left + '%',
                     width: item.size.width + 'px',
-                    heigth: item.size.height + 'px'}">
+                    height: item.size.height + 'px'}">
                 <span>{{item.text}}</span>
             </div>
         </div>
@@ -38,11 +29,17 @@
 </div>
 <div class="col-sm-4">
     <button type="button" ng-click="createAnnotation()">Add annotation</button>
-    <va-editor ng-show="selectedAnnotation!=null" annotation="selectedAnnotation"></va-editor>
-    <section class="annotations-container">
-        <video-annotation ng-repeat="annotation in annotations"
-                          source="annotation"
-                          ng-class="{selected: annotation.selected, completed: annotation.completed}"
+    <select ng-model="ann"
+            ng-change="selectAnnotation(ann, true)"
+            ng-options="ann as ann.text for ann in annotations"
+            ng-show="annotations.length > 0">
+    </select>
+
+    <va-editor ng-show="selectedAnnotation != null" annotation="selectedAnnotation"></va-editor>
+
+    <section ng-show="selectedAnnotation == null && annotations.length > 0" class="annotations-viewer">
+        <video-annotation ng-repeat="annotation in annotations" source="annotation"
+                          ng-class="{showing: annotation.showing, completed: annotation.completed}"
                           ng-click="selectAnnotation(annotation, true)"></video-annotation>
     </section>
 </div>

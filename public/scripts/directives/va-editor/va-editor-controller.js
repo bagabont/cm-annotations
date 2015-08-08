@@ -1,5 +1,14 @@
 app.controller('VaEditorController', ['$scope', 'socket',
     function($scope, socket) {
+
+        $scope.annotationTypes = [{
+            id: 'embedded-note',
+            name: 'Embedded Note'
+        }, {
+            id: 'note',
+            name: 'Note'
+        }];
+
         $scope.saveAnnotation = function() {
             var annotation = $scope.annotation;
             var params = {

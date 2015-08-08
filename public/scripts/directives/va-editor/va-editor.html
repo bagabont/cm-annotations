@@ -1,7 +1,7 @@
 <div id="editor-container">
     <label for="va-text">Text:</label>
     <br/>
-    <input id="va-text" type="text" ng-model="annotation.text" />
+    <input id="va-text" type="text" ng-model="annotation.text"/>
     <br/>
     <label for="va-start">Start:</label>
     <br/>
@@ -19,8 +19,9 @@
     <br/>
     <input id="va-top" ng-model="annotation.position.top">
     <br/>
-    <label for="is-inline">Inline:</label>
-    <input id="is-inline" type="checkbox" ng-model="annotation.is_inline" />
+    <select ng-model="annotation.type">
+        <option ng-repeat="type in annotationTypes" value="{{type.id}}">{{type.name}}</option>
+    </select>
     <br/>
     <button type="submit" ng-click="saveAnnotation()" ng-show="annotation && annotation.text.length > 0">Save</button>
     <button type="button" ng-click="deleteAnnotation()" ng-show="annotation">Delete</button>
