@@ -42,14 +42,14 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
             $scope.selectAnnotation(defaultAnnotation, false);
         };
 
-        $scope.selectAnnotation = function (annotation, seekTime) {
-            if (seekTime === true) {
-                // add .001 to seek time in order to show inline annotations
-                $scope.API.seekTime(annotation.start + 0.001);
-            }
+        $scope.seekPosition = function (annotation) {
+            // add .001 to seek time in order to show inline annotations
+            $scope.API.seekTime(annotation.start + 0.001);
             $scope.selectedAnnotation = annotation;
 
-            if (annotation.is_inline) {
+            // If the annotation is embedded,
+            // attach reposition
+            if (annotation.type === 'embedded-note') {
                 annotation.reposition = function (params) {
                     if (params.position) {
                         annotation.position = params.position;
