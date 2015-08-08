@@ -16,7 +16,7 @@
         </vg-controls>
         <!-- <vg-overlay-play></vg-overlay-play> -->
         <div id="inline-va-container">
-            <div movable on-moved="item.reposition" ng-repeat="item in annotations | filter:{type: embedded}"
+            <div movable on-moved="item.reposition" ng-repeat="item in annotations | filter:{type: 'embedded-note'}"
                  class="inline-va-annotation" ng-show="item.showing" ng-click="selectAnnotation(item, false)" ng-style="{
                     top: item.position.top + '%', 
                     left: item.position.left + '%',
