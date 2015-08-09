@@ -34,7 +34,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                     "height": "100",
                     "width": "200"
                 },
-                "type": "note",
+                "type": "embedded-note",
                 "text": "",
                 "author": "Anonymous", //TODO - get author
                 "video_id": $scope.config.source.id
@@ -45,7 +45,6 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         $scope.seekPosition = function(annotation) {
             // add .001 to seek time in order to show inline annotations
             $scope.API.seekTime(annotation.start + 0.001);
-            // $scope.selectedAnnotation = annotation;
         };
 
         $scope.onPlayerReady = function(API) {
