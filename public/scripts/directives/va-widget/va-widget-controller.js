@@ -45,20 +45,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         $scope.seekPosition = function(annotation) {
             // add .001 to seek time in order to show inline annotations
             $scope.API.seekTime(annotation.start + 0.001);
-            $scope.selectedAnnotation = annotation;
-
-            // If the annotation is embedded,
-            // attach reposition
-            if (annotation.type === 'embedded-note') {
-                annotation.reposition = function(params) {
-                    if (params.position) {
-                        annotation.position = params.position;
-                    }
-                    if (params.size) {
-                        annotation.size = params.size;
-                    }
-                };
-            }
+            // $scope.selectedAnnotation = annotation;
         };
 
         $scope.onPlayerReady = function(API) {
@@ -82,6 +69,15 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
                         onUpdate: onUpdate,
                         onComplete: onComplete,
                         params: annotation
+                    };
+
+                    annotation.reposition = function(params) {
+                        if (params.position) {
+                            annotation.position = params.position;
+                        }
+                        if (params.size) {
+                            annotation.size = params.size;
+                        }
                     };
 
                     $scope.annotations.push(annotation);

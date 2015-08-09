@@ -15,6 +15,11 @@ app.controller('VaEditorController', ['$scope', 'socket',
                 annotation: annotation
             };
             socket.emit('annotations:save', params);
+            $scope.annotation = null;
+        };
+
+        $scope.cancelEdit = function() {
+            $scope.annotation = null;
         };
 
         $scope.deleteAnnotation = function() {
