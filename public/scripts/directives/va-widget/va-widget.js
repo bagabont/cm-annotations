@@ -5,8 +5,7 @@ app.directive('vaWidget',
                 config: '='
             },
             templateUrl: 'scripts/directives/va-widget/va-widget.html',
-            controller: 'VaWidgetController',
-            controllerAs: 'vaWidgetController'
+            controller: 'VaWidgetController'
         };
     }
 );

@@ -1,8 +1,9 @@
-app.directive('videoAnnotation', function () {
+app.directive('videoAnnotation', function() {
     return {
         scope: {
             source: '='
         },
-        templateUrl: 'scripts/directives/va-annotation/va-annotation.html'
+        templateUrl: 'scripts/directives/va-annotation/va-annotation.html',
+        controller: 'VaController'
     };
 });

@@ -50,17 +50,21 @@ video-annotation {
     font-family: Calibri, Helvetica, Arial, serif;
 }
 
+video-annotation header {
+    font-size: 8pt;
+}
+
 video-annotation article {
     padding: 10px;
 }
 
-video-annotation article footer {
+video-annotation #meta {
     position: relative;
     border-top: 1px #696969 solid;
     border-bottom: 1px #696969 solid;
 }
 
-video-annotation article footer .author {
+video-annotation #meta .author {
     right: 0;
     top: 0;
     position: absolute;
