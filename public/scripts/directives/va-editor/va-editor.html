@@ -1,7 +1,7 @@
 <div id="editor-container">
     <label for="va-text">Text:</label>
     <br/>
-    <input id="va-text" type="text" ng-model="annotation.text"/>
+    <input id="va-text" type="text" ng-model="annotation.text" />
     <br/>
     <label for="va-start">Start:</label>
     <br/>
@@ -11,14 +11,16 @@
     <br/>
     <input id="va-end" ng-model="annotation.end">
     <br/>
-    <label for="va-left">Left:</label>
-    <br/>
-    <input id="va-left" ng-model="annotation.position.left">
-    <br/>
-    <label for="va-top">Top:</label>
-    <br/>
-    <input id="va-top" ng-model="annotation.position.top">
-    <br/>
+    <div ng-hide="annotation.type==='note'">
+        <label for="va-left">Left:</label>
+        <br/>
+        <input id="va-left" ng-model="annotation.position.left">
+        <br/>
+        <label for="va-top">Top:</label>
+        <br/>
+        <input id="va-top" ng-model="annotation.position.top">
+        <br/>
+    </div>
     <select ng-model="annotation.type">
         <option ng-repeat="type in annotationTypes" value="{{type.id}}">{{type.name}}</option>
     </select>

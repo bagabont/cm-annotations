@@ -45,6 +45,7 @@ app.controller('VaWidgetController', ['$scope', 'socket', '$sce',
         $scope.seekPosition = function(annotation) {
             // add .001 to seek time in order to show inline annotations
             $scope.API.seekTime(annotation.start + 0.001);
+            $scope.API.pause();
         };
 
         $scope.onPlayerReady = function(API) {
